@@ -350,6 +350,22 @@ func (q *UserTaskGetListQuery) MarshalJSON() ([]byte, error) {
 	})
 }
 
+type ReqModifyVaribales struct {
+	// A JSON object containing variable key-value pairs
+	Modifications map[string]Variable `json:"modifications"`
+	Deletions     []string            `json:"deletions"`
+}
+
+// Modify variables
+func (t *userTaskApi) ModifyVariables(id string, query ReqModifyVaribales) error {
+	_, err := t.client.doPostJson("/task/"+id+"/variables", map[string]string{}, query)
+	if err != nil {
+		return fmt.Errorf("can't post json: %w", err)
+	}
+
+	return nil
+}
+
 // Get retrieves a task by id
 func (t *userTaskApi) Get(id string) (*UserTask, error) {
 	res, err := t.client.doGet("/task/"+id, map[string]string{})
