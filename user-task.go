@@ -356,7 +356,7 @@ type ReqModifyVaribales struct {
 	Deletions     []string            `json:"deletions"`
 }
 
-// Modify variables
+// ModifyVariables Modify variables
 func (t *userTaskApi) ModifyVariables(id string, query ReqModifyVaribales) error {
 	_, err := t.client.doPostJson("/task/"+id+"/variables", map[string]string{}, query)
 	if err != nil {
